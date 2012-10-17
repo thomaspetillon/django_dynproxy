@@ -7,7 +7,7 @@ With django_dynproxy, you can dynamically modify a Django proxy model by :
 * hiding one or many fields (from the concrete parent model)
 * making mandatory one or many fields (who are not mandatory in the concrete parent model)
 
-This can be useful when you want to use inheritance in your code, but not in your database
+This can be useful when you want to use inheritance in your code, but not in your database  
 
 WARNING : THIS IS AN ALPHA RELEASE. NOT RECOMMENDED FOR PRODUCTION USE
 
@@ -20,8 +20,13 @@ Usage :
 ---------
 
 1) Create a concrete model
+
 2) Create a Django proxy model deriving from the concrete model
-3) Define a metaclass using dynproxy_metaclass_factory
+
+3) Define a metaclass using dynproxy_metaclass_factory and specify :
+- which base fields you want to exclude from your proxy model
+- which non-mandatory base fields you want to be mandatory your proxy model
+
 4) Add the __metaclass__ to your proxy model class
 
 
