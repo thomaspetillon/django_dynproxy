@@ -2,7 +2,7 @@ from distutils.core import setup
 
 setup(
     name = 'django_dynproxy',
-    packages = ['django_dynproxy'],
+    packages = ['dynproxy'],
     version = '0.1.0',
     author = 'Thomas Petillon',
     author_email = 'petillon@topic.fr',
@@ -14,7 +14,7 @@ setup(
         "License :: Public Domain",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
-        "Topic :: Software Development"
+        "Topic :: Software Development",
         "Topic :: Utilities",
     ]
 )
