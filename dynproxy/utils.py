@@ -1,21 +1,7 @@
+import copy
 from django.db.models.base import ModelBase
 from django.db.models.fields.related import ForeignKey
 from django.db.models.fields import CharField, TextField
-
-def clone_field_cache_for_dynproxy(model_class,fields_to_exclude):
-    result = ()    
-    for item in model_class._meta._field_cache:
-        if item[0].name not in fields_to_exclude:
-            result += (item,)
-    return result
-
-def clone_field_name_cache_for_dynproxy(model_class,fields_to_exclude):
-    result = []    
-    for item in model_class._meta._field_name_cache:
-        if item.name not in fields_to_exclude:
-            result.append(item)
-    return result
-
 
 def dynproxy_metaclass_factory(mandatory_fields,fields_to_exclude):
     class _DynProxyMetaclass(ModelBase):
@@ -33,14 +19,20 @@ def dynproxy_metaclass_factory(mandatory_fields,fields_to_exclude):
                 if type(model_field) in [CharField,TextField]:                    
                     attr_value = ""                                            
                 setattr(model_class,attr_name,attr_value)
-            # Exclude specified fields            
-            model_class._meta._field_cache =  clone_field_cache_for_dynproxy(model_class,fields_to_exclude)
-            model_class._meta._field_name_cache = clone_field_name_cache_for_dynproxy(model_class,fields_to_exclude)            
-            # Make specified fields mandatory
-            for f in model_class._meta.fields:
-                if f.name in mandatory_fields:
-                    f.blank = False
-                    f.null = False
+            # Clone of field caches, excluding specified fields
+            # and making mandatory specified fields
+            new_field_cache = ()    
+            for item in model_class._meta._field_cache:
+                field_name = item[0].name
+                if field_name in fields_to_exclude:
+                    continue
+                new_item = copy.deepcopy(item)                
+                if field_name in mandatory_fields:
+                    new_item[0].blank = False
+                    new_item[0].null = False
+                new_field_cache += (new_item,)                
+            model_class._meta._field_cache =  new_field_cache
+            model_class._meta._field_name_cache = [item[0] for item in model_class._meta._field_cache]
             # Return updated model class
             return model_class
     return _DynProxyMetaclass

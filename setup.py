@@ -3,7 +3,7 @@ from distutils.core import setup
 setup(
     name = 'django_dynproxy',
     packages = ['dynproxy'],
-    version = '0.1.0',
+    version = '0.1.1',
     author = 'Thomas Petillon',
     author_email = 'petillon@topic.fr',
     url = "https://github.com/tomjerry/libtopic",
