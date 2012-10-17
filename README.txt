@@ -3,6 +3,12 @@ django_dynproxy
 
 Dynamic proxy models for Django
 
+With django_dynproxy, you can dynamically modify a Django proxy model by :
+* hiding one or many fields (from the concrete parent model)
+* making mandatory one or many fields (who are not mandatory in the concrete parent model)
+
+This can be useful when you want to use inheritance in your code, but not in your database
+
 WARNING : THIS IS AN ALPHA RELEASE. NOT RECOMMENDED FOR PRODUCTION USE
 
 Installation :
