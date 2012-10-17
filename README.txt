@@ -10,8 +10,17 @@ Installation :
 
 pip install django_dynproxy
 
-Sample usage :
---------------
+Usage :
+---------
+
+1) Create a concrete model
+2) Create a Django proxy model deriving from the concrete model
+3) Define a metaclass using dynproxy_metaclass_factory
+4) Add the __metaclass__ to your proxy model class
+
+
+Sample :
+---------
 
 from dynproxy.utils import dynproxy_metaclass_factory
 
