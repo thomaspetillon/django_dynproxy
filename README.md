@@ -11,7 +11,7 @@ Installation :
 pip install django_dynproxy
 
 Sample usage :
--------------
+--------------
 
 from dynproxy.utils import dynproxy_metaclass_factory
 
@@ -22,7 +22,6 @@ TRAVELER_TYPES = (
     (TRAVELER_TYPE_PILOT,_(u"Pilot")),
     (TRAVELER_TYPE_PASSENGER,_(u"Passenger"))
 )
-
 
 class Traveler(models.Model):
     first_name = models.CharField(max_length=200)
@@ -44,7 +43,6 @@ def traveler_manager_factory(traveler_type):
 
 PilotManager = traveler_manager_factory(TRAVELER_TYPE_PILOT)
 PassengerManager = traveler_manager_factory(TRAVELER_TYPE_PASSENGER)
-
 
                 
 PilotMetaclass = dynproxy_metaclass_factory(    
